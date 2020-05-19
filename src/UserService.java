@@ -2,6 +2,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserService implements IUserService {
     DAL dal;
@@ -32,7 +33,38 @@ public class UserService implements IUserService {
 
     @Override
     public boolean insertUserInDatabase(User user) {
+
         String sql = "{call insert_user('" + user.getName() + "','" + user.getPass() + "','" + user.getPhone() + "','" + user.getEmail() + "','" + user.getAddress() + "')}";
         return dal.updateData(sql);
+    }
+
+    public boolean testInsertListUsers() {
+        ArrayList<User> list = new ArrayList<>();
+        list.add(new User("a","b","c","d","e"));
+        list.add(new User("f","g","h","j","k"));
+        list.add(new User("l","m","n","b","v"));
+        try {
+            dal.connection.setAutoCommit(false);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        for (User user : list){
+            if (user.getName().equals("l")){
+                try {
+                    dal.connection.rollback();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                return false;
+            }
+            String sql = "{call insert_user('" + user.getName() + "','" + user.getPass() + "','" + user.getPhone() + "','" + user.getEmail() + "','" + user.getAddress() + "')}";
+             dal.updateData(sql);
+        }
+        try {
+            dal.connection.commit();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
     }
 }

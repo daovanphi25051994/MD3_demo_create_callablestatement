@@ -19,9 +19,22 @@ public class DemoCallableServlet extends HttpServlet {
 //        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
 //        request.setAttribute("user", user);
 //        requestDispatcher.forward(request, response);
-        User user = new User("phidao", "123321", "0912345678", "phidv@gmail.com", "hai duong");
-        boolean isInserted = userService.insertUserInDatabase(user);
-        if (isInserted) {
+
+//        User user = new User("phidao", "123321", "0912345678", "phidv@gmail.com", "hai duong");
+//        boolean isInserted = userService.insertUserInDatabase(user);
+//        if (isInserted) {
+//            String message = "insert successfully !";
+//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+//            request.setAttribute("message", message);
+//            requestDispatcher.forward(request, response);
+//        } else {
+//            String message = "insert not successfully !";
+//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+//            request.setAttribute("message", message);
+//            requestDispatcher.forward(request, response);
+//        }
+        boolean isCommited = userService.testInsertListUsers();
+        if (isCommited) {
             String message = "insert successfully !";
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
             request.setAttribute("message", message);
@@ -31,7 +44,7 @@ public class DemoCallableServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
             request.setAttribute("message", message);
             requestDispatcher.forward(request, response);
-        }
 
+        }
     }
 }
