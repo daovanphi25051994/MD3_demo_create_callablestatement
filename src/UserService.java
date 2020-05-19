@@ -33,7 +33,6 @@ public class UserService implements IUserService {
 
     @Override
     public boolean insertUserInDatabase(User user) {
-
         String sql = "{call insert_user('" + user.getName() + "','" + user.getPass() + "','" + user.getPhone() + "','" + user.getEmail() + "','" + user.getAddress() + "')}";
         return dal.updateData(sql);
     }
@@ -66,5 +65,22 @@ public class UserService implements IUserService {
             throwables.printStackTrace();
         }
         return true;
+    }
+
+    @Override
+    public ResultSet getListUser() {
+        String sql = "call showListUser();";
+       ResultSet listUser = dal.getData(sql);
+       return listUser;
+    }
+
+    @Override
+    public void editUser(String userName) {
+
+    }
+
+    @Override
+    public boolean deleteUser(String userName) {
+        return false;
     }
 }

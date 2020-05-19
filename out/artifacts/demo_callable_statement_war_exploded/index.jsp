@@ -17,7 +17,18 @@
   <title>Document</title>
 </head>
 <body>
-<h1>${message}</h1>
+<%--<h1>${message}</h1>--%>
+<table>
+<c:forEach items="${listUser}" var="user">
+  <tr>
+    <td>${user.getName()}</td>
+    <td>${user.getPass()}</td>
+    <td>${user.getPhone()}</td>
+    <td>${user.getEmail()}</td>
+    <td>${user.getAddress()}</td>
+  </tr>
+</c:forEach>
+</table>
 
 <%--  <h1>${user.getName()}</h1>--%>
 <%--  <h1>${user.getPass()}</h1>--%>

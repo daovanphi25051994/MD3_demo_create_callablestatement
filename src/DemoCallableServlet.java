@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet(name = "DemoCallableServlet", urlPatterns = "/home")
 public class DemoCallableServlet extends HttpServlet {
@@ -33,18 +36,38 @@ public class DemoCallableServlet extends HttpServlet {
 //            request.setAttribute("message", message);
 //            requestDispatcher.forward(request, response);
 //        }
-        boolean isCommited = userService.testInsertListUsers();
-        if (isCommited) {
-            String message = "insert successfully !";
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
-            request.setAttribute("message", message);
-            requestDispatcher.forward(request, response);
-        } else {
-            String message = "insert not successfully !";
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
-            request.setAttribute("message", message);
-            requestDispatcher.forward(request, response);
 
+//        boolean isCommited = userService.testInsertListUsers();
+//        if (isCommited) {
+//            String message = "insert successfully !";
+//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+//            request.setAttribute("message", message);
+//            requestDispatcher.forward(request, response);
+//        } else {
+//            String message = "insert not successfully !";
+//            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+//            request.setAttribute("message", message);
+//            requestDispatcher.forward(request, response);
+//
+//        }
+
+        ResultSet listUser = userService.getListUser();
+        ArrayList<User> userArrayList = new ArrayList<>();
+        while (true) {
+            try {
+                if (!listUser.next()) break;
+                String name = listUser.getString(1);
+                String pass = listUser.getString(2);
+                String phone = listUser.getString(3);
+                String email = listUser.getString(4);
+                String address = listUser.getString(5);
+                userArrayList.add(new User(name, pass, phone, email, address));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+        request.setAttribute("listUser" , userArrayList);
+        requestDispatcher.forward(request, response);
     }
 }
