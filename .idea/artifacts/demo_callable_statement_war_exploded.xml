@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="demo_callable_statement:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/demo_callable_statement_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="demo_callable_statement/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="demo_callable_statement" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="jstl-1.2" />
+          <element id="file-copy" path="$USER_HOME$/web_setup/mysql-connector-java-8.0.20.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
